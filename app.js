@@ -4,11 +4,11 @@ const MongoDBStore = require('connect-mongodb-session')(expressSession);
 const cors = require('cors')
 
 const authRoutes = require('./routes/auth');
-const {SESSION_SECRET, USERS_URI} =require('./configs');
+const {SESSION_SECRET} =require('./configs');
 
 const app = express();
 const sessionStore = new MongoDBStore({
-    uri: USERS_URI, 
+    uri: process.env.MONGODB_URI, 
     collection: 'sessions',
   });
 
