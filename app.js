@@ -14,7 +14,11 @@ app.use(expressSession({
     store: MongoStore.create({
       mongoUrl: process.env.MONGODB_URI,
       ttl: 14 * 24 * 60 * 60
-    })
+    }),
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    secure: true
   }));
 
 app.use(cors({
