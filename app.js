@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json({limit: '1KB'}))
 app.use(expressSession({
     store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI,
+      mongoUrl: process.env.GAME_URI,
       ttl: 14 * 24 * 60 * 60
     }),
     secret: 'your-secret-key',
