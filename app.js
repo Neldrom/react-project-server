@@ -7,7 +7,7 @@ const {SESSION_SECRET, IS_PRODUCTION} =require('./configs');
 
 const app = express();
 
-const { session } = require('../modules/user');
+const { session } = require('./controllers/auth');
 
 app.use(express.json({limit: '1KB'}))
 app.use(
