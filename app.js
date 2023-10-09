@@ -1,16 +1,12 @@
 const express = require('express');
 const expressSession = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(expressSession);
 const cors = require('cors')
 
 const authRoutes = require('./routes/auth');
-const {SESSION_SECRET} =require('./configs');
+const {SESSION_SECRET, IS_PRODUCTION} =require('./configs');
 
 const app = express();
-const sessionStore = new MongoDBStore({
-    uri: process.env.MONGODB_URI, 
-    collection: 'sessions',
-  });
+
 
 app.use(express.json({limit: '1KB'}))
 app.use(
@@ -20,10 +16,9 @@ app.use(
         saveUninitialized: false,
         secret: SESSION_SECRET,
         cookie:{
-            secure: true,
+            secure: IS_PRODUCTION,
             maxAge: 1000 * 60 * 60 * 24,
-        },
-        store: sessionStore
+        }
     })
 )
 app.use(cors({
