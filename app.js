@@ -26,6 +26,7 @@ app.use(
         store: sessionStore
     })
 )
+console.log(sessionStore);
 app.use(cors({
     origin: 'https://neldrom.github.io',
   }));
