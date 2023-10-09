@@ -7,6 +7,9 @@ const {SESSION_SECRET, IS_PRODUCTION} =require('./configs');
 
 const app = express();
 
+const {connectDBs} = require('./dbs/db');
+
+const sessionStore = {connectDBs};
 
 app.use(express.json({limit: '1KB'}))
 app.use(
@@ -18,7 +21,8 @@ app.use(
         cookie:{
             secure: IS_PRODUCTION,
             maxAge: 1000 * 60 * 60 * 24,
-        }
+        },
+        store: sessionStore
     })
 )
 app.use(cors({
