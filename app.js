@@ -22,7 +22,7 @@ app.use(
     })
 )
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://your-production-domain.com'],
+    origin: 'https://neldrom.github.io',
   }));
 
 app.use('/api/v1/auth', authRoutes)
