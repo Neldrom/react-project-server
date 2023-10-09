@@ -29,16 +29,16 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     const validationResult = loginValidator(req.body);
     if (validationResult !== true) {
-        return res.status(400).json({ message: validationResult })
+        return res.json({ message: validationResult })
     }
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
-        return res.status(404).json({ message: "Username does not exists." });
+        return res.json({ message: "Username does not exists." });
     }
 
     const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
     if (!isPasswordCorrect) {
-        return res.status(401).json({ message: 'Password is not correct.' })
+        return res.json({ message: 'Password is not correct.' })
     }
 
     req.session.userId = user.id;
@@ -55,11 +55,11 @@ exports.loginRequired = async (req, res, next) => {
     console.log(req.session.userId);
 
     if (!req.session || !req.session.userId) {
-        return res.status(403).json({ message: 'You should login for acess to this route' });
+        return res.json({ message: 'You should login for acess to this route' });
     }
     req.user = await User.findById(req.session.userId);
     if (!req.user) {
-        return res.status(403).json({ message: "This user id no longer exists" })
+        return res.json({ message: "This user id no longer exists" })
     }
     next();
 }
@@ -119,7 +119,7 @@ exports.addGame = async (req, res) => {
 
         await user.save();
 
-        return res.status(200).json({ message: 'Game added successfully', user });
+        return res.json({ message: 'Game added successfully', user });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Internal server error' });
@@ -132,7 +132,7 @@ exports.deleteGame = async (req, res) => {
         user.games = user.games.filter((item) => item.title !== req.params.title);
         
         await user.save();
-        return res.status(200).json({ message: 'Game deleted successfully', user });
+        return res.json({ message: 'Game deleted successfully', user });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Internal server error' });
