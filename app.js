@@ -3,24 +3,30 @@ const expressSession = require('express-session');
 const cors = require('cors')
 
 const authRoutes = require('./routes/auth');
-const {SESSION_SECRET, IS_PRODUCTION} =require('./configs');
+const { SESSION_SECRET, IS_PRODUCTION, MONGODB_URI } = require('./configs');
 
 const app = express();
 
+const store = new MongoDBStore({
+  uri: MONGODB_URI,
+  collection: 'sessions',
+});
 
-app.use(express.json({limit: '1KB'}))
+app.use(express.json({ limit: '1KB' }));
+
 app.use(
-    expressSession({
-        name: "dron",
-        resave: false,
-        saveUninitialized: false,
-        secret: SESSION_SECRET,
-        cookie:{
-            secure: IS_PRODUCTION,
-            maxAge: 1000 * 60 * 60 * 24,
-        }
-    })
-)
+  expressSession({
+    name: 'dron',
+    resave: false,
+    saveUninitialized: false,
+    secret: SESSION_SECRET,
+    cookie: {
+      secure: IS_PRODUCTION,
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+    store: store,
+  })
+);
 app.use(cors({
     origin: 'https://neldrom.github.io',
   }));
