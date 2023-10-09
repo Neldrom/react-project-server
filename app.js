@@ -4,7 +4,7 @@ const MongoDBStore = require('connect-mongodb-session')(expressSession);
 const cors = require('cors')
 
 const authRoutes = require('./routes/auth');
-const {SESSION_SECRET, IS_PRODUCTION, USERS_URI} =require('./configs');
+const {SESSION_SECRET, USERS_URI} =require('./configs');
 
 const app = express();
 const sessionStore = new MongoDBStore({
@@ -20,13 +20,12 @@ app.use(
         saveUninitialized: false,
         secret: SESSION_SECRET,
         cookie:{
-            secure: IS_PRODUCTION,
+            secure: true,
             maxAge: 1000 * 60 * 60 * 24,
         },
         store: sessionStore
     })
 )
-console.log(sessionStore);
 app.use(cors({
     origin: 'https://neldrom.github.io',
   }));
