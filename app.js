@@ -7,7 +7,6 @@ const {SESSION_SECRET, IS_PRODUCTION} =require('./configs');
 
 const app = express();
 
-const { session } = require('./controllers/auth');
 
 app.use(express.json({limit: '1KB'}))
 app.use(
@@ -19,8 +18,7 @@ app.use(
         cookie:{
             secure: IS_PRODUCTION,
             maxAge: 1000 * 60 * 60 * 24,
-        },
-        store: session
+        }
     })
 )
 app.use(cors({

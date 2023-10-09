@@ -30,10 +30,9 @@ const gameSchema = new mongoose.Schema({
   });
 
 
-const {gamesDb, userDb, sessionStore} = connectDBs();
+const {gamesDb, userDb} = connectDBs();
 
 const User = userDb.model('user', userSchema);
 const Game = gamesDb.model('game', gameSchema);
-const session = sessionStore;
 
-module.exports = {User, Game, session};
+module.exports = {User, Game};

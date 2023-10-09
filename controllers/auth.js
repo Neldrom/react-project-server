@@ -1,12 +1,10 @@
 const bcrypt = require('bcrypt')
 const _ = require('lodash')
 
-const { User, Game,session } = require('../modules/user');
+const { User, Game } = require('../modules/user');
 const registerValidator = require('../validators/register');
 const loginValidator = require('../validators/login');
 const { dbSecretFields } = require('../configs')
-
-module.exports =  {session}
 
 exports.register = async (req, res) => {
     const validationResult = registerValidator(req.body);
