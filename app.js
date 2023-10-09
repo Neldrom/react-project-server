@@ -1,5 +1,6 @@
 const express = require('express');
 const expressSession = require('express-session');
+const cors = require('cors')
 
 const authRoutes = require('./routes/auth');
 const {SESSION_SECRET, IS_PRODUCTION} =require('./configs');
