@@ -1,34 +1,31 @@
 const express = require('express');
 const expressSession = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(expressSession);
+const MongoStore = require("connect-mongo");
 const cors = require('cors')
 
 const authRoutes = require('./routes/auth');
-const {SESSION_SECRET} =require('./configs');
+const { SESSION_SECRET } = require('./configs');
 
 const app = express();
-const sessionStore = new MongoDBStore({
-    uri: process.env.MONGODB_URI, 
-    collection: 'sessions',
-  });
 
-app.use(express.json({limit: '1KB'}))
-app.use(
-    expressSession({
-        name: "dron",
-        resave: false,
-        saveUninitialized: false,
-        secret: SESSION_SECRET,
-        cookie:{
-            secure: true,
-            maxAge: 1000 * 60 * 60 * 24,
-        },
-        store: sessionStore
-    })
-)
+
+// app.use(expressSession({
+//   store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI })
+// }));
+
+app.use(express.json({ limit: '1KB' }))
+app.use(expressSession({
+  secret: 'keyboard cat',
+  saveUninitialized: false, 
+  resave: false,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,
+    touchAfter: 24 * 3600 
+  })
+}));
 app.use(cors({
-    origin: 'https://neldrom.github.io',
-  }));
+  origin: 'https://neldrom.github.io',
+}));
 
 app.use('/api/v1/auth', authRoutes)
 
