@@ -8,12 +8,6 @@ const { SESSION_SECRET } = require('./configs');
 
 const app = express();
 
-
-// app.use(expressSession({
-//   store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI })
-// }));
-
-app.use(express.json({ limit: '1KB' }))
 app.use(expressSession({
   secret: 'keyboard cat',
   saveUninitialized: false, 
