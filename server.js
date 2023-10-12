@@ -11,6 +11,11 @@ const { SESSION_SECRET } = require('./configs');
 
 const app = express();
 
+app.use(cors({
+    origin: 'https://neldrom.github.io',
+  }));
+  
+
 app.use(expressSession({
   secret: SESSION_SECRET,
   saveUninitialized: false, 
@@ -19,9 +24,6 @@ app.use(expressSession({
     mongoUrl: process.env.MONGODB_URI,
     touchAfter: 24 * 3600 
   })
-}));
-app.use(cors({
-  origin: 'https://neldrom.github.io',
 }));
 
 app.use('/api/v1/auth', authRoutes)
