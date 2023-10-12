@@ -8,26 +8,29 @@ const cors = require('cors')
 const bodyParser = require("body-parser");
 
 const authRoutes = require('./routes/auth');
-const { SESSION_SECRET } = require('./configs');
+const { SESSION_SECRET, IS_PRODUCTION } = require('./configs');
 
 const app = express();
 
-app.use(cors({
-    origin: ['http://localhost:3000', 'https://neldrom.github.io'],
-}));
-
-app.use(bodyParser.json({ type: 'application/*+json' }))
-
+app.use(express.json({limit: '1KB'}))
 
 app.use(expressSession({
     secret: SESSION_SECRET,
-    secure: true,
-    saveUninitialized: false,
+    secure: false,
+    saveUninitialized: true,
     resave: false,
+    cookie:{
+        secure: IS_PRODUCTION,
+        maxAge: 1000 * 60 * 60 * 24,
+    },
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
         touchAfter: 24 * 3600,
     }),
+}));
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://neldrom.github.io'],
+    credentials: true,
 }));
 
 app.use('/api/v1/auth', authRoutes)
@@ -35,3 +38,4 @@ app.use('/api/v1/auth', authRoutes)
 app.listen(PORT, () => {
     console.log(`server started listening on port ${PORT}...`)
 })
+
