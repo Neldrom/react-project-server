@@ -4,7 +4,8 @@ const _ = require('lodash')
 const { User, Game } = require('../modules/user');
 const registerValidator = require('../validators/register');
 const loginValidator = require('../validators/login');
-const { dbSecretFields } = require('../configs')
+const { dbSecretFields } = require('../configs');
+
 
 exports.register = async (req, res) => {
     // const validationResult = registerValidator(req.body);
