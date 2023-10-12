@@ -20,7 +20,6 @@ app.use(expressSession({
     cookie:{
         secure: true,
         maxAge: 1000 * 60 * 60 * 24,
-        domain: 'http://localhost:3000'
     },
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
