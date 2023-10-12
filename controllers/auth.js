@@ -7,10 +7,10 @@ const loginValidator = require('../validators/login');
 const { dbSecretFields } = require('../configs')
 
 exports.register = async (req, res) => {
-    const validationResult = registerValidator(req.body);
-    if (validationResult !== true) {
-        return res.status(400).json({ message: validationResult })
-    }
+    // const validationResult = registerValidator(req.body);
+    // if (validationResult !== true) {
+    //     return res.status(400).json({ message: validationResult })
+    // }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 12);
 
@@ -27,10 +27,10 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-    const validationResult = loginValidator(req.body);
-    if (validationResult !== true) {
-        return res.json({ message: "validation error" })
-    }
+    // const validationResult = loginValidator(req.body);
+    // if (validationResult !== true) {
+    //     return res.json({ message: "validation error" })
+    // }
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
         return res.json({ message: "Username does not exists." });
