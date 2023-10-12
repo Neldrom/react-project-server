@@ -1,11 +1,9 @@
 require('dotenv').config();
-const mongoose = require('mongoose')
 const { PORT } = require('./configs');
 const express = require('express');
 const expressSession = require('express-session');
 const MongoStore = require("connect-mongo");
 const cors = require('cors')
-const bodyParser = require("body-parser");
 
 const authRoutes = require('./routes/auth');
 const { SESSION_SECRET, IS_PRODUCTION } = require('./configs');
@@ -20,7 +18,7 @@ app.use(expressSession({
     saveUninitialized: true,
     resave: false,
     cookie:{
-        secure: IS_PRODUCTION,
+        secure: true,
         maxAge: 1000 * 60 * 60 * 24,
     },
     store: MongoStore.create({
