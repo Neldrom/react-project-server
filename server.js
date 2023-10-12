@@ -3,7 +3,7 @@ const { PORT } = require('./configs');
 const express = require('express');
 const expressSession = require('express-session');
 const MongoStore = require("connect-mongo");
-const cors = require('cors')
+const cors = require('cors');
 
 const authRoutes = require('./routes/auth');
 const { SESSION_SECRET, IS_PRODUCTION } = require('./configs');
@@ -20,6 +20,7 @@ app.use(expressSession({
     cookie:{
         secure: true,
         maxAge: 1000 * 60 * 60 * 24,
+        domain: 'http://localhost:3000'
     },
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
