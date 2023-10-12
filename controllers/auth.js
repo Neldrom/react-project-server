@@ -29,7 +29,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     const validationResult = loginValidator(req.body);
     if (validationResult !== true) {
-        return res.json({ message: validationResult })
+        return res.json({ message: "validation error" })
     }
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
@@ -38,7 +38,7 @@ exports.login = async (req, res) => {
 
     const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
     if (!isPasswordCorrect) {
-        return res.json({ message: 'Password is not correct.' })
+        return res.json({ message: "Password is not correct." })
     }
 
     req.session.userId = user.id;
