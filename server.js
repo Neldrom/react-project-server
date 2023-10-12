@@ -12,7 +12,7 @@ const { SESSION_SECRET } = require('./configs');
 const app = express();
 
 app.use(cors({
-    origin: ['http://localhost:3000/', 'https://neldrom.github.io'],
+    origin: ['http://localhost:3000', 'https://neldrom.github.io'],
   }));
   
 
