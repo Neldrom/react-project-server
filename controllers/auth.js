@@ -31,6 +31,7 @@ exports.login = async (req, res) => {
     // if (validationResult !== true) {
     //     return res.json({ message: "validation error" })
     // }
+    console.log(req.body);
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
         return res.json({ message: "Username does not exists." });
