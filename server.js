@@ -14,7 +14,7 @@ app.use(express.json({limit: '1KB'}))
 
 app.use(expressSession({
     secret: SESSION_SECRET,
-    secure: false,
+    secure: true,
     saveUninitialized: true,
     resave: false,
     cookie:{
