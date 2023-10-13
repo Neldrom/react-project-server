@@ -13,7 +13,6 @@ app.set("trust proxy", 1);
 app.use(express.json({limit: '1KB'}))
 
 app.use(expressSession({
-    name: "dron",
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
