@@ -13,6 +13,7 @@ app.set("trust proxy", 1);
 app.use(express.json({limit: '1KB'}))
 
 app.use(expressSession({
+    name: "dron",
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
@@ -28,9 +29,17 @@ app.use(expressSession({
         touchAfter: 24 * 3600,
     }),
 }));
+const allowedOrigins = ['http://localhost:3000', 'https://neldrom.github.io'];
+
 app.use(cors({
-    origin: '*',
-    credentials: true,
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, 
 }));
 
 app.use('/api/v1/auth', authRoutes)
