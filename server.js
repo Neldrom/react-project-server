@@ -9,7 +9,7 @@ const authRoutes = require('./routes/auth');
 const { SESSION_SECRET, IS_PRODUCTION } = require('./configs');
 
 const app = express();
-app.set("trust proxy", 1);
+app.set("trust proxy", true);
 app.use(express.json({limit: '1KB'}))
 
 app.use(expressSession({
