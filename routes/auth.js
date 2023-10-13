@@ -11,7 +11,7 @@ router.get('/profile', loginRequired, profile);
 router.get('/loadGames', loadGames);
 router.post('/addGame', loginRequired, addGame);
 router.delete('/deleteGame/:title' , loginRequired, deleteGame);
-router.get('/loadUserGames', loadUserGames);
+router.get('/loadUserGames', loginRequired, loadUserGames);
 router.post('/loginStatus', loginStatus)
 
 module.exports = router;
