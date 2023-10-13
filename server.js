@@ -17,7 +17,6 @@ app.use(expressSession({
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    proxy: false,
     cookie: {
       secure: true,
       httpOnly: false,
