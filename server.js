@@ -12,8 +12,7 @@ const app = express();
 app.set("trust proxy", 1);
 app.use(express.json({limit: '1KB'}))
 
-app.use(expressSession({
-    name: "dron",
+app.use(expressSession(
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
