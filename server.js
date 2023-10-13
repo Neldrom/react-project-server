@@ -9,18 +9,20 @@ const authRoutes = require('./routes/auth');
 const { SESSION_SECRET, IS_PRODUCTION } = require('./configs');
 
 const app = express();
-
+app.set("trust proxy", 1);
 app.use(express.json({limit: '1KB'}))
 
 app.use(expressSession({
     secret: SESSION_SECRET,
-    secure: true,
-    saveUninitialized: true,
     resave: false,
-    cookie:{
-        secure: true,
-        maxAge: 1000 * 60 * 60 * 24,
+    saveUninitialized: false,
+    cookie: {
+      secure: true,
+      httpOnly: false,
+      sameSite: "none",
+      maxAge: 60 * 60 * 1000,
     },
+    rolling: true,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
         touchAfter: 24 * 3600,
