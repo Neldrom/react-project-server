@@ -13,7 +13,6 @@ app.use(cors({
 app.use(express.json({limit: '1KB'}))
 app.use(
     expressSession({
-        name: "dron",
         resave: false,
         saveUninitialized: true,
         secret: SESSION_SECRET,
