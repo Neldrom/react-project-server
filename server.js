@@ -30,7 +30,7 @@ app.use(expressSession({
     }),
 }));
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://neldrom.github.io'],
+    origin: '*',
     credentials: true,
 }));
 
